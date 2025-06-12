@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/logo.png" type="image/png">
+    <title>学习心迹 - 数创联萌社团</title>
+    <style>
+        /* 继承主站的样式 */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --dark: #212529;
+            --dark-light: #2c3034;
+            --light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* 页面内容 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 7rem 5% 3rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 笔记网格 */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .note-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .note-content {
+            padding: 1.5rem;
+        }
+
+        .note-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .note-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: var(--primary-dark);
+        }
+
+        /* 暗色模式 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header {
+            background: rgba(30, 30, 30, 0.9);
+        }
+
+        body.dark-mode .nav-links a {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        body.dark-mode .note-card {
+            background: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .note-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .note-meta {
+            color: #aaa;
+        }
+
+        body.dark-mode .note-tag {
+            background: #333;
+            color: #e0e0e0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            body.dark-mode .nav-links {
+                background: #1e1e1e;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <div class="logo">数学与大数据学院</div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="index.html#features">社团空间</a>
+                <a href="accounts.html">社团账号</a>
+                <a href="members.html">社团成员</a>
+                <button id="theme-toggle" class="btn">暗色模式</button>
+            </div>
+            <div class="menu-btn">☰</div>
+        </nav>
+    </header>
+
+    <!-- 页面内容 -->
+    <div class="container">
+        <div class="page-header">
+            <h1>学习心迹</h1>
+            <p>这里是社团成员分享的学习笔记、心得和资源。互相学习，共同进步！</p>
+        </div>
+
+        <div class="notes-grid">
+            <!-- 笔记1 -->
+            <div class="note-card">
+                <div class="note-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');"></div>
+                <div class="note-content">
+                    <h3>C语言基础学习</h3>
+                    <div class="note-meta">
+                        <span>作者: 李原昇</span>
+                        <span>2025-06-12</span>
+                    </div>
+                    <div>
+                        <span class="note-tag">编程</span>
+                        <span class="note-tag">C语言</span>
+                    </div>
+                    <p>对C语言的基本概念给出解析，以及基本代码。</p>
+                    <a href="pdf/C语言学习.pdf" class="btn" target="_blank">查看详情</a>
+                    <a href="pdf/C语言学习.pdf" class="btn" download="C语言学习.pdf">下载</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 暗色/亮色模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggle.textContent = '亮色模式';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '暗色模式';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // 检测本地存储的主题偏好
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '亮色模式';
+        }
+    </script>
+</body>
+</html>

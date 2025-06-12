@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/logo.png" type="image/png">
+    <title>数创联萌社团</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4; 
+            --dark: #212529;
+            --dark-light: #2c3034;
+            --light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: var(--primary-dark);
+        }
+
+        /* 卡片区 */
+        .features {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* 暗色模式 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header {
+            background: rgba(30, 30, 30, 0.9);
+        }
+
+        body.dark-mode .nav-links a {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+        }
+
+        body.dark-mode .card {
+            background: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .btn {
+            background: var(--primary-dark);
+        }
+
+        body.dark-mode .btn:hover {
+            background: var(--primary);
+        }
+
+        /* 移动菜单暗色模式 */
+        @media (max-width: 768px) {
+            body.dark-mode .nav-links {
+                background: #1e1e1e;
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <div class="logo">数学与大数据学院</div>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#features">社团空间</a>
+                <a href="accounts.html">社团账号</a>
+                <a href="members.html">社团成员</a>
+                <button id="theme-toggle" class="btn">暗色模式</button>
+            </div>
+            <div class="menu-btn">☰</div>
+        </nav>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>数创联萌社团<br></h1>
+            <p>这里是学习、生活、情感、思想的交流空间。</p>
+            <a href="#features" class="btn">开启美好大学时光</a>
+        </div>
+    </section>
+
+    <!-- 功能卡片区 -->
+    <section class="features" id="features">
+        <h2 class="section-title">社团空间</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h3>时光记录</h3>
+                <p>记录我们在一起的精彩瞬间、欢乐时光、进步足迹。</p>
+ <a href="memories.html" class="btn" style="margin-top: 1rem;">查看记录</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎨</div>
+                <h3>学习心迹</h3>
+                <p>社团成员贡献的课堂笔记，学习资料。</p>
+<a href="study-notes.html" class="btn" style="margin-top: 1rem;">查看详情</a>
+            </div>
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>思想火花</h3>
+                <p>社团成员的思想交流地，让思想的火花在这里绽放。</p>
+                <p>  </p>
+ <a href="ideas.html" class="btn" style="margin-top: 1rem;">进入讨论</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="footer-links">
+            <a href="#">隐私条款</a>
+            <a href="#">服务条款</a>
+            <a href="#">联系我们</a>
+        </div>
+        <p>© 2025.数创联萌社团</p>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // 暗色/亮色模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggle.textContent = '亮色模式';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '暗色模式';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // 检测本地存储的主题偏好
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.textContent = '亮色模式';
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
